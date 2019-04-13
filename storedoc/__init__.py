@@ -1,5 +1,5 @@
-from services import SUPPORTED_SERVICES
-from local import LocalStorage
+from storedoc.services import SUPPORTED_SERVICES
+from storedoc.local import LocalStorage
 
 
 class Service(object):

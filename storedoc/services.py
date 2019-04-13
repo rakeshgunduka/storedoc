@@ -1,6 +1,6 @@
-from local import LocalStorage
-from s3 import S3Service
-from spaces import DOService
+from storedoc.local import LocalStorage
+from storedoc.s3 import S3Service
+from storedoc.spaces import DOService
 
 
 SUPPORTED_SERVICES = {

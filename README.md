@@ -1,4 +1,4 @@
-# Storedoc 0.1.0
+# Storedoc
 
 A python module to upload files on cloud. Supported services - [AWS S3](https://aws.amazon.com/s3/), [DigitalOcean Spaces](https://www.digitalocean.com/docs/spaces/), LocalStorage.
 
@@ -23,23 +23,26 @@ $ easy_install --upgrade storedoc
     from storedoc import Service
     client = Service('aws')
 
+
 ### Get information of the service
 
     client.describe()
 
+
 ### Instantiate AWS S3 Client
 
-    client.connect(
+        client.connect(
         region_name='//s3.your-region.amazonaws.com',
         endpoint_url='https://s3.amazonaws.com',
         aws_access_key_id='your-access-key',
         aws_secret_access_key='your-secret'
     )
 
+
 ### Upload the file to S3 bucket (Note: File type supported <werkzeug.datastructures.FileStorage>)
 
     client.upload_file(file, bucket='your-bucket-name')
-    
+
 
 #### Upload to DigitalOcean Spaces Buckets
 
@@ -48,18 +51,21 @@ $ easy_install --upgrade storedoc
     from storedoc import Service
     client = Service('do')
 
+
 ### Get information of the service
 
     client.describe()
 
+
 ### Instantiate DO Spaces Client
 
     client.connect(
-        region_name='your-region',
+        region_name='//s3.your-region.amazonaws.com',
         endpoint_url='https://your-region.digitaloceanspaces.com',
         aws_access_key_id='your-access-key',
         aws_secret_access_key='your-secret'
     )
+
 
 ### Upload the file to S3 bucket (Note: File type supported <werkzeug.datastructures.FileStorage>)
 
@@ -73,13 +79,16 @@ $ easy_install --upgrade storedoc
     from storedoc import Service
     client = LocalStorage()
 
+
 ### Save file to working directory (Note: File type supported <werkzeug.datastructures.FileStorage>)
 
     client.save_file(file)
 
+
 ### Save file to specific directory (Note: File type supported <werkzeug.datastructures.FileStorage>)
 
     client.save_file(file, folder='some-directory-name')
+
 
 ------
 
@@ -87,8 +96,10 @@ $ easy_install --upgrade storedoc
 The following libraries will be installed when you install the client library:
 * [boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html) (Amazon Web Services SDK for Python)
 
+
 ## To-Dos
 - Test cases.
+
 
 ## Contribute
 1. Look for an open [issue](https://github.com/rakeshgunduka/storedoc/issues) or create new issue to get a dialog going about the new feature or bug that you've discovered.

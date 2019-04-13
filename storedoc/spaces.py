@@ -1,4 +1,4 @@
-from s3 import S3Service
+from storedoc.s3 import S3Service
 
 class DOService(S3Service):
 
