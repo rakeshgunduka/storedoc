@@ -26,9 +26,10 @@ a "simple storage service" offered by Amazon Web Services that provides object s
             guess_mime,
             acl):
         buck = self.conn.Bucket(bucket)
+        file = open(media_location, 'rb')
         params = dict(
             Key=file_key,
-            Body=open(media_location, 'rb'),
+            Body=file,
             ACL=acl)
         if mime:
             params['ContentType'] = mime
