@@ -1,5 +1,7 @@
 import os
 import boto3
+import mimetypes
+
 
 class S3Service(object):
 
@@ -19,14 +21,21 @@ a "simple storage service" offered by Amazon Web Services that provides object s
     def _upload_file_to_cloud(self,
             media_location,
             file_key,
-            bucket):
+            bucket,
+            mime,
+            guess_mime):
         buck = self.conn.Bucket(bucket)
         params = dict(
             Key=file_key,
             Body=open(media_location, 'rb'),
             ACL='public-read')
-        if media_location.lower().endswith('.svg'):
-            params['ContentType'] = 'image/svg+xml'
+        if mime:
+            params['ContentType'] = mime
+        elif guess_mime:
+            guess_mime = mimetypes.guess_type(file)[0]
+            if guess_mime:
+                params['ContentType'] = guess_mime
+
         buck.put_object(**params)
         return '{}/{}/{}'.format(self.base_url, bucket, file_key)
 
@@ -52,7 +61,9 @@ a "simple storage service" offered by Amazon Web Services that provides object s
     def upload_file(self,
             file,
             bucket,
-            folder=''):
+            folder='',
+            mime=None,
+            guess_mime=False):
         filename = self._get_filename(file)
         file_key = filename
         if folder:
@@ -61,7 +72,9 @@ a "simple storage service" offered by Amazon Web Services that provides object s
         file_url = self._upload_file_to_cloud(
             media_location,
             file_key,
-            bucket
+            bucket,
+            mime,
+            guess_mime
         )
         self._remove_file_from_local(media_location)
         return file_url
