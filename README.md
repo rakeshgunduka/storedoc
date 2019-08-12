@@ -31,7 +31,7 @@ $ easy_install --upgrade storedoc
 
 ### Instantiate AWS S3 Client
 
-        client.connect(
+    client.connect(
         region_name='//s3.your-region.amazonaws.com',
         endpoint_url='https://s3.amazonaws.com',
         aws_access_key_id='your-access-key',
@@ -41,8 +41,18 @@ $ easy_install --upgrade storedoc
 
 ### Upload the file to S3 bucket (Note: File type supported <werkzeug.datastructures.FileStorage>)
 
+    # Default ACL (Access Control List) is set to 'private'.
+    # Default MIME Type results to 'binary/octet-stream' if no MIME type is provided.
     client.upload_file(file, bucket='your-bucket-name')
 
+    # To add your custom ACL ('private'|'public-read'|'public-read-write'|'authenticated-read'|'aws-exe').
+    client.upload_file(file, bucket='your-bucket-name', acl='public-read')
+
+    # To add explicit MIME Type. Example for JPEG image upload, you can user
+    client.upload_file(file, bucket='your-bucket-name', mime='image/jpeg')
+
+    # You can let storedoc guess the MIME Type for you (Default is set to False)
+    client.upload_file(file, bucket='your-bucket-name', guess_mime=True)
 
 #### Upload to DigitalOcean Spaces Buckets
 
@@ -69,7 +79,18 @@ $ easy_install --upgrade storedoc
 
 ### Upload the file to S3 bucket (Note: File type supported <werkzeug.datastructures.FileStorage>)
 
+    # Default ACL (Access Control List) is set to 'private'.
+    # Default MIME Type results to 'binary/octet-stream' if no MIME type is provided.
     client.upload_file(file, bucket='your-bucket-name')
+
+    # To add your custom ACL ('private'|'public-read'|'public-read-write'|'authenticated-read'|'aws-exe').
+    client.upload_file(file, bucket='your-bucket-name', acl='public-read')
+
+    # To add explicit MIME Type. Example for JPEG image upload, you can user
+    client.upload_file(file, bucket='your-bucket-name', mime='image/jpeg')
+
+    # You can let storedoc guess the MIME Type for you (Default is set to False)
+    client.upload_file(file, bucket='your-bucket-name', guess_mime=True)
 
 
 #### Save File to Local Storage
@@ -91,6 +112,12 @@ $ easy_install --upgrade storedoc
 
 
 ------
+
+## Features
+* Upload Any file to AWS s3, DigitalOcean Spaces
+* Set ACL Support
+* Content Type Support
+
 
 ## Third Party Libraries and Dependencies
 The following libraries will be installed when you install the client library:

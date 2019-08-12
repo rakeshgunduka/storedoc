@@ -23,12 +23,13 @@ a "simple storage service" offered by Amazon Web Services that provides object s
             file_key,
             bucket,
             mime,
-            guess_mime):
+            guess_mime,
+            acl):
         buck = self.conn.Bucket(bucket)
         params = dict(
             Key=file_key,
             Body=open(media_location, 'rb'),
-            ACL='public-read')
+            ACL=acl)
         if mime:
             params['ContentType'] = mime
         elif guess_mime:
@@ -63,7 +64,8 @@ a "simple storage service" offered by Amazon Web Services that provides object s
             bucket,
             folder='',
             mime=None,
-            guess_mime=False):
+            guess_mime=False,
+            acl='private'):
         filename = self._get_filename(file)
         file_key = filename
         if folder:
@@ -74,7 +76,8 @@ a "simple storage service" offered by Amazon Web Services that provides object s
             file_key,
             bucket,
             mime,
-            guess_mime
+            guess_mime,
+            acl
         )
         self._remove_file_from_local(media_location)
         return file_url
